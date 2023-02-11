@@ -1,0 +1,46 @@
+﻿@model DataBook
+@{
+    ViewData["Title"] = "EditDataBook";
+}
+
+@using (Html.BeginForm("EditDataFromField", "Home", FormMethod.Post))
+{
+    <div align="center" class="card col-md-12">
+        @Html.HiddenFor(m => m.Id)
+        <p>
+            @Html.LabelFor(m => m.Surname, "Фамилия")
+            <br />
+            @Html.EditorFor(m => m.Surname)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Name, "Имя")
+            <br />
+            @Html.EditorFor(m => m.Name)
+
+        </p>
+        <p>
+            @Html.LabelFor(m => m.MiddleName, "Отчество")
+            <br />
+            @Html.EditorFor(m => m.MiddleName)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.TelephoneNumber, "Номер телефона")
+            <br />
+            @Html.EditorFor(m => m.TelephoneNumber)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Adress, "Адрес")
+            <br />
+            @Html.EditorFor(m => m.Adress)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Note, "Описание")
+            <br />
+            @Html.EditorFor(m => m.Note)
+        </p>
+        <p><input type="submit" value="Сохранить" /></p>
+        <form method="get">
+            <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+        </form>
+    </div>
+}

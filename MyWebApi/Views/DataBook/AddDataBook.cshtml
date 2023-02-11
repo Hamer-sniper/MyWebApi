@@ -1,0 +1,26 @@
+﻿@model DataBook
+@{
+    ViewData["Title"] = "AddDataBook";
+}
+
+<div align="center" class="card col-md-12">
+    <form asp-controller="Home" asp-action="GetDataFromField" method="post">
+        <label class="form-label">Фамилия</label><br>
+        <input type="text" asp-for="Surname" class="form-control" /><br>
+        <label class="form-label">Имя</label><br>
+        <input type="text" asp-for="Name" class="form-control" /><br>
+        <label class="form-label">Отчество</label><br>
+        <input type="text" asp-for="MiddleName" class="form-control" /><br>
+        <label class="form-label">Номер телефона</label><br>
+        <input type="text" asp-for="TelephoneNumber" class="form-control" /><br>
+        <label class="form-label">Адрес</label><br>
+        <input type="text" asp-for="Adress" class="form-control" /><br>
+        <label class="form-label">Описание</label><br>
+        <input type="text" asp-for="Note" class="form-control" /><br>
+        <p><input type="submit" value="Сохранить" /></p>
+    </form>
+
+    <form method="get">
+        <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+    </form>
+</div>

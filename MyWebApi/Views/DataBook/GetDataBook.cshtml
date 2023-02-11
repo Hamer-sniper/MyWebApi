@@ -1,0 +1,44 @@
+﻿@model DataBook
+@{
+    ViewData["Title"] = "MyMVCProject";
+}
+
+<div align="center">
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Номер телефона</th>
+            <th>Адрес</th>
+            <th>Описание</th>
+        </tr>
+        <tr>
+            <td>@Model.Id.ToString()</td>
+            <td>@Model.Surname</td>
+            <td>@Model.Name</td>
+            <td>@Model.MiddleName</td><
+            <td>@Model.TelephoneNumber</td>
+            <td>@Model.Adress</td>
+            <td>@Model.Note</td>
+        </tr>
+    </table>
+
+    <p>
+        <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="EditDataBook" asp-route-dataBookId=@Model.Id>Изменить</a>
+    </p>
+
+    <p>
+        <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="DeleteDataBook" asp-route-dataBookId=@Model.Id>Удалить</a>
+    </p>
+    <p>
+        <form asp-controller="Home" asp-action="DeleteDataBook" method="post">
+            <p><input type="submit" value="Отправить" /></p>
+        </form>
+
+        <form method="get">
+            <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+        </form>
+    </p>
+</div>

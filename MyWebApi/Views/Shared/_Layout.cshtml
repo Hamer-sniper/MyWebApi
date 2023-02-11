@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex-grow: 1;
+        }
+    </style>
+    <title>@ViewData["Title"] - MyWebApi</title>
+</head>
+<body>
+    <div class="header" align="center">
+        <h1>Записная книжка</h1>
+    </div>
+    <div class="content">
+        @RenderBody()
+    </div>
+    <div align="center" class="footer">
+        <p>&copy; 2023 - MyWebApi - <a asp-area="" asp-controller="Home" asp-action="Index">Andrew</a></p>
+    </div>
+</body>
+</html>

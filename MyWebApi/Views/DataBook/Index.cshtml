@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "AllDataBooks";
+}
+
+<div align="center">
+    <table border="1" border-collapse: collapse>
+        <tr><th>ID</th><th>Фамилия</th><th>Имя</th><th>Отчество</th></tr>
+        @foreach (DataBook dataBook in ViewBag.DataBook)
+        {
+            <tr><td>
+                    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="GetDataBook" asp-route-dataBookId=@dataBook.Id>@dataBook.Id</a>
+                </td>
+                <td>@dataBook.Surname</td>
+                <td>@dataBook.Name</td>
+                <td>@dataBook.MiddleName</td>
+            </tr>
+        }
+    </table>
+    <br>
+    <form method="get">
+        <button type="submit" asp-controller="Home" asp-action="AddDataBook">Добавить</button>
+    </form>
+</div>
