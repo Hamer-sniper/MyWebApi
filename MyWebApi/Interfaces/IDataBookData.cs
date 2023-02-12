@@ -32,7 +32,7 @@ namespace MyWebApi.Interfaces
         /// Удалить запись из БД.
         /// </summary>
         /// <param name="dataBookId">Id записи</param>
-        void DeleteDataBook(int dataBookId);
+        void DeleteDataBook(DataBook dataBook);
 
 
     }

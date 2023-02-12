@@ -3,7 +3,7 @@
     ViewData["Title"] = "EditDataBook";
 }
 
-@using (Html.BeginForm("EditDataFromField", "Home", FormMethod.Post))
+@using (Html.BeginForm("EditDataFromField", "DataBook", FormMethod.Post))
 {
     <div align="center" class="card col-md-12">
         @Html.HiddenFor(m => m.Id)
@@ -39,8 +39,9 @@
             @Html.EditorFor(m => m.Note)
         </p>
         <p><input type="submit" value="Сохранить" /></p>
+
         <form method="get">
-            <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+            <button type="submit" asp-controller="DataBook" asp-action="Index">К общему списку</button>
         </form>
     </div>
 }

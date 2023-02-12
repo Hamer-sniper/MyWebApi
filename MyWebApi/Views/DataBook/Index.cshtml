@@ -8,7 +8,7 @@
         @foreach (DataBook dataBook in ViewBag.DataBook)
         {
             <tr><td>
-                    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="GetDataBook" asp-route-dataBookId=@dataBook.Id>@dataBook.Id</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="DataBook" asp-action="GetDataBook" asp-route-dataBookId=@dataBook.Id>@dataBook.Id</a>
                 </td>
                 <td>@dataBook.Surname</td>
                 <td>@dataBook.Name</td>
@@ -18,6 +18,6 @@
     </table>
     <br>
     <form method="get">
-        <button type="submit" asp-controller="Home" asp-action="AddDataBook">Добавить</button>
+        <button type="submit" asp-controller="DataBook" asp-action="AddDataBook">Добавить</button>
     </form>
 </div>

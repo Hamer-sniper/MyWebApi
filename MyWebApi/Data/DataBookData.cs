@@ -42,6 +42,7 @@ namespace MyWebApi.Controllers
         {
             return dBContext.DataBook.FirstOrDefault(d => d.Id == dataBookId);
         }
+
         /// <summary>
         /// Изменить запсиь в БД.
         /// </summary>
@@ -56,15 +57,10 @@ namespace MyWebApi.Controllers
         /// Удалить запись из БД.
         /// </summary>
         /// <param name="dataBookId">Id записи</param>
-        public void DeleteDataBook(int dataBookId)
+        public void DeleteDataBook(DataBook dataBook)
         {
-            var dataBookToDelete = ReadDataBook(dataBookId);
-
-            if (dataBookToDelete != null)
-            {
-                dBContext.DataBook.Remove(dataBookToDelete);
-                dBContext.SaveChanges();
-            }
+            dBContext.DataBook.Remove(dataBook);
+            dBContext.SaveChanges();
         }
     }
 }

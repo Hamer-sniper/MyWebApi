@@ -26,19 +26,16 @@
     </table>
 
     <p>
-        <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="EditDataBook" asp-route-dataBookId=@Model.Id>Изменить</a>
-    </p>
+        <form method="post" asp-controller="DataBook" asp-action="EditDataBook" asp-route-dataBookId=@Model.Id>
+            <p><input type="submit" value="Изменить" /></p>
+        </form>
 
-    <p>
-        <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="DeleteDataBook" asp-route-dataBookId=@Model.Id>Удалить</a>
-    </p>
-    <p>
-        <form asp-controller="Home" asp-action="DeleteDataBook" method="post">
-            <p><input type="submit" value="Отправить" /></p>
+        <form method="post" asp-controller="DataBook" asp-action="DeleteDataBook" asp-route-dataBookId=@Model.Id>
+            <p><input type="submit" value="Удалить" /></p>
         </form>
 
         <form method="get">
-            <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+            <button type="submit" asp-controller="DataBook" asp-action="Index">К общему списку</button>
         </form>
     </p>
 </div>

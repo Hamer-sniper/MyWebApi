@@ -3,7 +3,7 @@
     ViewData["Title"] = "EditDataBook";
 }
 
-@using (Html.BeginForm("DeleteDataFromField", "Home", FormMethod.Post))
+@using (Html.BeginForm("DeleteDataFromField", "DataBook", FormMethod.Post))
 {
     <div align="center" class="card col-md-12">
         @Html.HiddenFor(m => m.Id)
@@ -39,7 +39,7 @@
         </p>
         <p><input type="submit" value="Подтвердите удаление записи" /></p>
         <form method="get">
-            <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+            <button type="submit" asp-controller="DataBook" asp-action="Index">К общему списку</button>
         </form>
     </div>
 }

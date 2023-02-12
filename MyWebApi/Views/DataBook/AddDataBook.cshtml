@@ -4,7 +4,7 @@
 }
 
 <div align="center" class="card col-md-12">
-    <form asp-controller="Home" asp-action="GetDataFromField" method="post">
+    <form asp-controller="DataBook" asp-action="AddDataFromField" method="post">
         <label class="form-label">Фамилия</label><br>
         <input type="text" asp-for="Surname" class="form-control" /><br>
         <label class="form-label">Имя</label><br>
@@ -21,6 +21,6 @@
     </form>
 
     <form method="get">
-        <button type="submit" asp-controller="Home" asp-action="Index">К общему списку</button>
+        <button type="submit" asp-controller="DataBook" asp-action="Index">К общему списку</button>
     </form>
 </div>
