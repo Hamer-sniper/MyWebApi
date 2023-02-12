@@ -17,15 +17,29 @@
     </style>
     <title>@ViewData["Title"] - MyWebApi</title>
 </head>
-<body>
+<body class="container">
+    <nav class="navbar navbar-light bg-light" align="center">
+        <div> @await Component.InvokeAsync("LogoutView") </div>
+    </nav>
     <div class="header" align="center">
         <h1>Записная книжка</h1>
     </div>
     <div class="content">
         @RenderBody()
     </div>
+
+    <style>
+        .container {
+            padding-top: 10px;
+        }
+
+        .validation-summary-errors {
+            color: #f00;
+        }
+    </style>
+
     <div align="center" class="footer">
-        <p>&copy; 2023 - MyWebApi - <a asp-area="" asp-controller="Home" asp-action="Index">Andrew</a></p>
+        <p>&copy; 2023 - MyWebApi - <a asp-area="" asp-controller="DataBook" asp-action="Index">Andrew</a></p><br></br>
     </div>
 </body>
 </html>

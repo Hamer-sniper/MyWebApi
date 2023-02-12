@@ -1,0 +1,20 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <div class="btn-group pull-right">        
+        <form method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
+            <a class="navbar-brand" href="#">@User.Identity.Name в системе</a>
+            <a>&nbsp;&nbsp;&nbsp;</a>
+            <a class="navbar-brand" href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
+        </form>
+    </div>
+}
+else
+{
+    <div class="btn-group pull-right">
+        <a class="navbar-brand" href="/Account/Login">Вход</a>
+        <a>&nbsp;&nbsp;&nbsp;</a>
+        <a class="navbar-brand" href="/Account/Register">Регистрация</a>
+    </div>
+}
+
+

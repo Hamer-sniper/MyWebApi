@@ -3,6 +3,7 @@ using MyWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using MyWebApi.DataContext;
 using MyWebApi.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyWebApi.Controllers
 {
@@ -28,6 +29,7 @@ namespace MyWebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddDataBook()
         {
             return View();

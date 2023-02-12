@@ -9,6 +9,7 @@ namespace MyWebApi.Interfaces
         /// </summary>
         /// <returns></returns>
         List<DataBook> GetAllDatabooks();
+
         /// <summary>
         /// Добавить запись в БД.
         /// </summary>

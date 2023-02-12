@@ -19,7 +19,7 @@ namespace MyWebApi.DataContext
             Microsoft.Data.SqlClient.SqlConnectionStringBuilder sqlCon = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder()
             {
                 DataSource = @"(localdb)\MSSQLLocalDB",
-                InitialCatalog = @"MSSQLLocalDemo",
+                InitialCatalog = @"MSSQLForAPI",
                 IntegratedSecurity = true,
                 UserID = "sa",
                 Password = "123",
