@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MyWebApi.Controllers
 {
+    [Authorize]
     public class DataBookController : Controller
     {
         private readonly IDataBookData dataBookData;
@@ -16,6 +17,7 @@ namespace MyWebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             ViewBag.DataBook = dataBookData.GetAllDatabooks();
@@ -28,8 +30,7 @@ namespace MyWebApi.Controllers
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet]        
         public IActionResult AddDataBook()
         {
             return View();
@@ -43,12 +44,14 @@ namespace MyWebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult EditDataBook(int dataBookId)
         {
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult EditDataFromField(DataBook dataBook)
         {
             dataBookData.UpdateDataBook(dataBook);
@@ -56,12 +59,14 @@ namespace MyWebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult DeleteDataBook(int dataBookId)
         {
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult DeleteDataFromField(DataBook dataBook)
         {
             dataBookData.DeleteDataBook(dataBook);

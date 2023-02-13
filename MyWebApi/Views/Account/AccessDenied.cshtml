@@ -1,0 +1,18 @@
+﻿@model MyWebApi.Authentification.UserLogin
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div align="center" class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 well">
+            <h2 class="text-center">Доступ только для администратора!</h2>
+        </div>
+
+        <form method="post" asp-controller="Account" asp-action="AccessDenied">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <p><input type="submit" value="Вернуться назад"/></p>
+        </form>
+    </div>
+
+</div>

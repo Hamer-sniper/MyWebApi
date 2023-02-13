@@ -93,5 +93,19 @@ namespace MyWebApi.Controllers
             return RedirectToAction("Index", "DataBook");
         }
 
+        [HttpGet]
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AccessDenied(UserLogin model)
+        {
+            string returnUrl = model.ReturnUrl;
+            var urlToReturn = returnUrl.Replace("Edit", "Get").Replace("Delete", "Get");
+
+            return Redirect(urlToReturn);
+        }
     }
 }
