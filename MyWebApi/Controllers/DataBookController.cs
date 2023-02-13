@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWebApi.Models;
-using Microsoft.EntityFrameworkCore;
-using MyWebApi.DataContext;
 using MyWebApi.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace MyWebApi.Controllers
 {
-    [Authorize]
     public class DataBookController : Controller
     {
         private readonly IDataBookData dataBookData;
@@ -17,7 +14,7 @@ namespace MyWebApi.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult Index()
         {
             ViewBag.DataBook = dataBookData.GetAllDatabooks();
@@ -25,18 +22,21 @@ namespace MyWebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetDataBook(int dataBookId)
         {
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
-        [HttpGet]        
+        [HttpGet]
+        [Authorize]
         public IActionResult AddDataBook()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddDataFromField(DataBook dataBook)
         {
             dataBookData.CreateDataBook(dataBook);
@@ -44,14 +44,14 @@ namespace MyWebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditDataBook(int dataBookId)
         {
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditDataFromField(DataBook dataBook)
         {
             dataBookData.UpdateDataBook(dataBook);
@@ -59,14 +59,14 @@ namespace MyWebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteDataBook(int dataBookId)
         {
             return View(dataBookData.ReadDataBook(dataBookId));
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteDataFromField(DataBook dataBook)
         {
             dataBookData.DeleteDataBook(dataBook);
