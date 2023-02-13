@@ -1,18 +1,28 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model MyWebApi.Roles.ChangeRole
- 
+
 <div align="center">
-<h2>Изменение ролей для пользователя @Model.UserEmail</h2>
- 
-<form asp-action="Edit" method="post">
-    <input type="hidden" name="userId" value="@Model.UserId" />
-    <div class="form-group">
-        @foreach (IdentityRole role in Model.AllRoles)
-        {
-            <input type="checkbox" name="roles" value="@role.Name"
-                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
-        }
-    </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
+    @if (Model.UserName == "Administrator")
+    {
+        <h2>Изменение ролей для пользователя @Model.UserName запрещены!</h2>
+    }
+    else
+    {
+        <h2>Изменение ролей для пользователя @Model.UserName</h2>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <div class="form-group">
+                @foreach (IdentityRole role in Model.AllRoles)
+                {
+                    <input type="checkbox" name="roles" value="@role.Name"
+                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+
+                    @role.Name <br />
+                }
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    }
+    <p><a asp-action="UserList">Назад</a></p>
 </div>

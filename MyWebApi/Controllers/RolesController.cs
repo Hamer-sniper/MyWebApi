@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using MyWebApi.Roles;
 using MyWebApi.Authentification;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyWebApi.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
@@ -64,7 +66,7 @@ namespace MyWebApi.Controllers
                 ChangeRole model = new ChangeRole
                 {
                     UserId = user.Id,
-                    UserEmail = user.Email,
+                    UserName = user.UserName,
                     UserRoles = userRoles,
                     AllRoles = allRoles
                 };
@@ -73,11 +75,24 @@ namespace MyWebApi.Controllers
 
             return NotFound();
         }
+
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            // получаем пользователя
+            User user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);             
+            }
+            return RedirectToAction("UserList");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
             // получаем пользователя
             User user = await _userManager.FindByIdAsync(userId);
+              
             if (user != null)
             {
                 // получем список ролей пользователя

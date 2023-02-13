@@ -2,6 +2,11 @@
 {
     <div class="btn-group pull-right">        
         <form method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="navbar-brand" href="/Roles">Управление ролями</a>
+            }
+            <a>&nbsp;&nbsp;&nbsp;</a>
             <a class="navbar-brand" href="#">@User.Identity.Name в системе</a>
             <a>&nbsp;&nbsp;&nbsp;</a>
             <a class="navbar-brand" href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>

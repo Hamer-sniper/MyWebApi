@@ -12,7 +12,21 @@
                 <td>
                     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
                 </td>
+                <td>
+                    @if (user.UserName == "Administrator")
+                    {
+                        <div>Удаление запрещено</div>
+                    }
+                    else
+                    {                      
+                        <form asp-action="DeleteUser" asp-route-userid="@user.Id">
+                            <button type="submit" class="btn btn-sm btn-danger">Удалить пользователя</button>
+                        </form>
+                    }
+                </td>
             </tr>
         }
     </table>
+
+    <p><a asp-action="Index">Назад</a></p>
 </div>

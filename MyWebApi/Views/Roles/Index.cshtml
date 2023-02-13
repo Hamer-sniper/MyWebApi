@@ -8,15 +8,24 @@
         <tr>
             <td>@role.Name</td>
             <td>
+                @if (role.Name == "Admin")
+                {
+                    <a>Удаление запрещено</a>
+                }
+                else
+                {
                 <form asp-action="Delete" asp-route-id="@role.Id" method="post">
                     <button type="submit" class="btn btn-sm btn-danger">
                         Удалить
                     </button>
                 </form>
+                }
             </td>
         </tr>
     }
 </table>
 <a asp-action="Create">Добавить роль</a>
 <a asp-action="UserList">Список пользователей</a>
+
+<p><a asp-controller="DataBook" asp-action="Index">Назад</a></p>
 </div>

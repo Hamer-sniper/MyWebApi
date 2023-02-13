@@ -102,10 +102,7 @@ namespace MyWebApi.Controllers
         [HttpPost]
         public IActionResult AccessDenied(UserLogin model)
         {
-            string returnUrl = model.ReturnUrl;
-            var urlToReturn = returnUrl.Replace("Edit", "Get").Replace("Delete", "Get");
-
-            return Redirect(urlToReturn);
+            return RedirectToAction("Index", "DataBook");
         }
     }
 }
