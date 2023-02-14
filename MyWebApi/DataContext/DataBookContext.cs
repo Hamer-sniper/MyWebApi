@@ -18,8 +18,8 @@ namespace MyWebApi.DataContext
         {
             Microsoft.Data.SqlClient.SqlConnectionStringBuilder sqlCon = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder()
             {
-                //DataSource = @"(localdb)\MSSQLLocalDB",
-                DataSource = @"ST-WS-007\WEBAPITESTDB",
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                //DataSource = @"ST-WS-007\WEBAPITESTDB",
                 InitialCatalog = @"MSSQLForAPI",
                 IntegratedSecurity = true,
                 UserID = "sa",

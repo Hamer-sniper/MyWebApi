@@ -1,6 +1,8 @@
-﻿namespace MyWebApi.Models
+﻿using MyWebApi.Interfaces;
+
+namespace MyWebApi.Models
 {
-    public class DataBook
+    public class DataBook : IDataBook
     {
         #region Свойства 
         /// <summary>
@@ -55,6 +57,7 @@
         /// <param name="adress"></param>
         public DataBook(string surname, string name, string middleName, string telephoneNumber, string adress, string note)
         {
+            Count++;
             //Id = Count;
             Surname = surname;
             Name = name;

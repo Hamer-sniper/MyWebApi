@@ -30,10 +30,23 @@ namespace MyWebApi.Interfaces
         void UpdateDataBook(DataBook dataBook);
 
         /// <summary>
-        /// Удалить запись из БД.
+        /// Изменить запсиь в БД по Id.
         /// </summary>
         /// <param name="dataBookId">Id записи</param>
+        /// <param name="dataBook">Запись</param>
+        void UpdateDataBookById(int dataBookId, DataBook dataBook);
+
+        /// <summary>
+        /// Удалить запись из БД.
+        /// </summary>
+        /// <param name="dataBook">Запись</param>
         void DeleteDataBook(DataBook dataBook);
+
+        /// <summary>
+        /// Удалить запись из БД по Id.
+        /// </summary>
+        /// <param name="dataBookId">Id записи</param>
+        void DeleteDataBookById(int dataBookId);
 
 
     }

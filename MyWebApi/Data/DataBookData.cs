@@ -54,13 +54,49 @@ namespace MyWebApi.Controllers
         }
 
         /// <summary>
-        /// Удалить запись из БД.
+        /// Изменить запсиь в БД по Id.
         /// </summary>
         /// <param name="dataBookId">Id записи</param>
+        /// <param name="dataBook">Запись</param>
+        public void UpdateDataBookById(int dataBookId, DataBook dataBook)
+        {
+            var dataBookToModify = ReadDataBook(dataBookId);
+
+            if (dataBookToModify != null)
+            {
+                dataBookToModify.Surname = dataBook.Surname;                
+                dataBookToModify.Name = dataBook.Name;
+                dataBookToModify.MiddleName = dataBook.MiddleName;
+                dataBookToModify.TelephoneNumber = dataBook.TelephoneNumber;
+                dataBookToModify.Adress = dataBook.TelephoneNumber;
+                dataBookToModify.Note = dataBook.TelephoneNumber;
+                dBContext.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Удалить запись из БД.
+        /// </summary>
+        /// <param name="dataBook">Запись</param>
         public void DeleteDataBook(DataBook dataBook)
         {
             dBContext.DataBook.Remove(dataBook);
             dBContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Удалить запись из БД по Id.
+        /// </summary>
+        /// <param name="dataBookId">Id записи</param>
+        public void DeleteDataBookById(int dataBookId)
+        {
+            var dataBookToDelete = ReadDataBook(dataBookId);
+
+            if (dataBookToDelete != null)
+            {
+                dBContext.DataBook.Remove(dataBookToDelete);
+                dBContext.SaveChanges();
+            }
         }
     }
 }
