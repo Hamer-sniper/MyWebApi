@@ -68,8 +68,8 @@ namespace MyWebApi.Controllers
                 dataBookToModify.Name = dataBook.Name;
                 dataBookToModify.MiddleName = dataBook.MiddleName;
                 dataBookToModify.TelephoneNumber = dataBook.TelephoneNumber;
-                dataBookToModify.Adress = dataBook.TelephoneNumber;
-                dataBookToModify.Note = dataBook.TelephoneNumber;
+                dataBookToModify.Adress = dataBook.Adress;
+                dataBookToModify.Note = dataBook.Note;
                 dBContext.SaveChanges();
             }
         }
