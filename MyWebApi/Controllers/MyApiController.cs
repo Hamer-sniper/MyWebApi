@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyWebApi.Interfaces;
 using MyWebApi.Models;
+using System.Data;
 
 namespace MyWebApi.Controllers
 {
@@ -16,6 +18,7 @@ namespace MyWebApi.Controllers
 
         // GET api/MyApi
         [HttpGet]
+        //[Authorize(Roles = "Admin")]
         public IEnumerable<IDataBook> Get()
         {
             return dataBookData.GetAllDatabooks();
