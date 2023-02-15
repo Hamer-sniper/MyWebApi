@@ -22,7 +22,7 @@ namespace MyWebApi.Controllers
 
 
 
-        /*
+        
         [HttpPost("/token")]
         public IActionResult Token(string username, string password)
         {
@@ -86,7 +86,11 @@ namespace MyWebApi.Controllers
             return user;
         }
 
-*/
+
+
+
+
+
         public async Task<bool> LoginResultIsSucceed(string login, string password)
         {
             var loginResult = await _signInManager.PasswordSignInAsync(login,
