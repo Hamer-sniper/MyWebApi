@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyWebApi.Interfaces;
 using MyWebApi.Models;
-using System.Data;
 
 namespace MyWebApi.Controllers
 {
@@ -33,6 +32,7 @@ namespace MyWebApi.Controllers
 
         // POST api/MyApi
         [HttpPost]
+        //[Authorize]
         public void Post([FromBody] DataBook dataBook)
         {
             dataBookData.CreateDataBook(dataBook);
@@ -40,6 +40,7 @@ namespace MyWebApi.Controllers
 
         // PUT api/MyApi/3
         [HttpPut("{id}")]
+        //[Authorize(Roles = "Admin")]
         public void Put(int id, [FromBody] DataBook dataBook)
         {
             dataBookData.UpdateDataBookById(id, dataBook);
@@ -47,6 +48,7 @@ namespace MyWebApi.Controllers
 
         // DELETE api/MyApi/5
         [HttpDelete("{id}")]
+        //[Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             dataBookData.DeleteDataBookById(id);
