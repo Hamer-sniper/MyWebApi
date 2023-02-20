@@ -18,6 +18,7 @@ namespace MyWebApi.Controllers
         /// Получить все записи из БД.
         /// </summary>
         /// <returns></returns>
+        
         public List<DataBook> GetAllDatabooks()
         {
             return dBContext.DataBook.ToList();

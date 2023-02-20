@@ -25,14 +25,14 @@ namespace MyWebApi.Controllers
 
         // GET api/MyApi/1
         [HttpGet("{id}")]
-        public IDataBook GetCarById(int id)
+        public IDataBook GetDataBookById(int id)
         {
             return dataBookData.ReadDataBook(id);
         }
 
         // POST api/MyApi
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public void Post([FromBody] DataBook dataBook)
         {
             dataBookData.CreateDataBook(dataBook);
@@ -40,7 +40,7 @@ namespace MyWebApi.Controllers
 
         // PUT api/MyApi/3
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public void Put(int id, [FromBody] DataBook dataBook)
         {
             dataBookData.UpdateDataBookById(id, dataBook);
@@ -48,7 +48,7 @@ namespace MyWebApi.Controllers
 
         // DELETE api/MyApi/5
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             dataBookData.DeleteDataBookById(id);

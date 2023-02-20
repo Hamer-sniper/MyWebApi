@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MyWebApi.Authentification;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace MyWebApi.Controllers
 {
@@ -19,76 +21,36 @@ namespace MyWebApi.Controllers
             _signInManager = signInManager;
         }
 
+        // Работа с токенами
+        private const string SECRET_KEY = "TQvgjeABMPOwCycOqah5EQu5yyVjpmVG";
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new
+                      SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY));
 
-
-
-        
-        [HttpPost("/token")]
-        public IActionResult Token(string username, string password)
-        {
-            var identity = GetIdentity(username, password);
-            if (identity == null)
-            {
-                return BadRequest(new { errorText = "Invalid username or password." });
-            }
-
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
-            };
-
-            return Json(response);
-        }
-
-        private ClaimsIdentity GetIdentity(string username, string password)
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("/Token/{username}/{password}")]
+        public IActionResult Get(string username, string password)
         {
             if (LoginResultIsSucceed(username, password).Result)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "авторизованный")
-                };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-
-            // если пользователя не найдено
-            return null;
+                return new ObjectResult(GenerateToken(username));
+            else
+                return BadRequest("Invalid User");
         }
 
-        public async Task<IList<string>> FindRoles(User user)
+        private string GenerateToken(string username)
         {
-            // получаем роль
-            var userRoles = await _userManager.GetRolesAsync(user);
+            var token = new JwtSecurityToken(
+                issuer: "myapi",
+                audience: "myapi",
+                claims: new Claim[] { new Claim(ClaimTypes.Name, username) },
+                notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+                expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+                signingCredentials: new SigningCredentials(SIGNING_KEY,
+                                                    SecurityAlgorithms.HmacSha256)
+                );
 
-            return userRoles;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-        public async Task<User> FindUser(string userName)
-        {
-            // получаем пользователя
-            User user = await _userManager.FindByNameAsync(userName);
-
-            return user;
-        }
-
-
-
-
 
 
         public async Task<bool> LoginResultIsSucceed(string login, string password)

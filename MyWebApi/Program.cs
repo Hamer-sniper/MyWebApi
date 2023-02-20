@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using MyWebApi.Authentification;
 using MyWebApi.Controllers;
@@ -14,7 +17,24 @@ builder.Services.AddDbContext<DataBookContext>();
 
 builder.Services.AddScoped<IDataBookData, DataBookData>();
 
-builder.Services.AddMvc();
+//builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+
+#pragma warning disable ASP5001 // Type or member is obsolete
+builder.Services.AddMvc(options => 
+{
+    options.EnableEndpointRouting = false;
+    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser().RequireAuthenticatedUser().Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+#pragma warning disable CS0618 // Type or member is obsolete
+}).SetCompatibilityVersion(version: CompatibilityVersion.Latest);
+#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore ASP5001 // Type or member is obsolete
+
+/*var build = builder.Services.AddIdentityCore<User>();
+var identityBuilder = new IdentityBuilder(build.UserType, build.Services);
+identityBuilder.AddEntityFrameworkStores<DataBookContext>();
+identityBuilder.AddSignInManager<SignInManager<User>>();*/
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<DataBookContext>()
@@ -41,30 +61,28 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
+                    {                        
+                        options.ClaimsIssuer = "myapi";
+                        options.Audience = "myapi";
+                        options.SaveToken = true;
+                        options.TokenValidationParameters = new TokenValidationParameters()
                         {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
-
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
+                            IssuerSigningKey = AccountController.SIGNING_KEY,
                             ValidateLifetime = true,
-
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = "myapi",
+                            ValidateIssuer = true,
                         };
+                        options.RequireHttpsMetadata = false;
                     });
-
-//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+                    /*.AddCookie(options =>
+                    {
+                        options.Cookie.HttpOnly = true;
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                        options.LoginPath = "/Account/Login";
+                        options.LogoutPath = "/Account/Logout";
+                        options.AccessDeniedPath = "/Account/AccessDenied";
+                        options.SlidingExpiration = true;
+                    });*/
 
 var app = builder.Build();
 
@@ -84,18 +102,20 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+//app.UseStaticFiles();
 
-app.UseRouting();
+//app.UseRouting();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
+/*app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=DataBook}/{action=Index}/{id?}");
+    pattern: "{controller=DataBook}/{action=Index}/{id?}");*/
+
+app.UseMvc();
 
 app.Run();
